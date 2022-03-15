@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="DUT_oil_level" Id="{e224be9d-10b0-49e6-8deb-a67a2efdaa08}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE DUT_oil_level :
+(
+	VeryLow,Low,High,VeryHigh,OK
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

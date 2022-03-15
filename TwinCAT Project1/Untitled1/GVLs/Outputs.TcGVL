@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <GVL Name="Outputs" Id="{ef6fc48f-0dd8-459d-85d3-31e8a9c5d05f}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	bSimRunning : BOOL;
+	fSimulationTime : LREAL;
+	fCylinderVelocity : LREAL;
+	fCylinderPosition : LREAL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

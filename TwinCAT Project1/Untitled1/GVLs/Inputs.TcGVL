@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <GVL Name="Inputs" Id="{4b96b09a-a1ef-4460-ad38-d9004cd577d3}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	bEnable : BOOL;
+	bStart : BOOL;
+	bReset : BOOL;
+	fCylinderVelocityReference : REAL;
+	bAutoMode : BOOL := TRUE;
+	fManualCylinderPositionReference : REAL;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

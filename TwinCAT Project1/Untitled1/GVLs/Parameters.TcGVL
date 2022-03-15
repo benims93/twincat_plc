@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <GVL Name="Parameters" Id="{7ba86b58-142f-47c8-9afe-1d035483279a}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	pCraneParameters : ST_pCraneParameters;
+	aTestArray : ARRAY[0..5] OF REAL := [0,1,2,3,4,5];
+	fLowerDeadBand : LREAL := 0.1;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

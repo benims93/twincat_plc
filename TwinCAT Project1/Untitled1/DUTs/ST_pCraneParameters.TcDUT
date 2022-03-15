@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <DUT Name="ST_pCraneParameters" Id="{bd3f3e50-15f0-41d8-9841-9eceb24fc68c}">
+    <Declaration><![CDATA[TYPE ST_pCraneParameters :
+STRUCT
+	fCycleTime : LREAL := 10E-2;
+	fInitialVelocity : REAL := 0;
+	fInitialPosition : REAL := 0;
+	fT1 : REAL := 0;
+	fT2 : REAL := 30;
+	fT3 : REAL := 60;
+	fStartPos : REAL := 0;
+	fMidPos : LREAL := 1;
+	fEndPos : REAL := 0;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

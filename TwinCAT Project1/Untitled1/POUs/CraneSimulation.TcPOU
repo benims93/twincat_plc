@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.10">
+  <POU Name="CraneSimulation" Id="{386eb2ba-0859-427d-9c1c-15458717297f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM CraneSimulation
+VAR
+	fTime : LREAL;
+	fOilLevelSensor : LREAL;
+	eOilLevelAlarms : DUT_oil_level;
+	fCraneAngle : LREAL;
+	fCraneAngleDeg : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF inputs.bAutoMode AND inputs.bStart THEN
+	fTime := fTime + parameters.pCraneParameters.fCycleTime;
+ELSE
+	fTime := 0;
+END_IF
+
+IF fTime > 0 AND inputs.bAutoMode THEN
+	outputs.bSimRunning := TRUE;
+END_IF
+IF outputs.bSimRunning THEN
+	IF fTime > 0 AND fTime <= parameters.pCraneParameters.fT2 THEN
+		outputs.fCylinderVelocity := 1/(parameters.pCraneParameters.fT2);
+		outputs.fCylinderPosition := outputs.fCylinderVelocity*fTime;
+		parameters.pCraneParameters.fMidPos := outputs.fCylinderPosition;//saved for next loop
+	ELSIF fTime > parameters.pCraneParameters.fT2 AND fTime <= parameters.pCraneParameters.fT3 THEN
+		outputs.fCylinderVelocity := -1/(parameters.pCraneParameters.fT3-Parameters.pCraneParameters.fT2);
+		outputs.fCylinderPosition := outputs.fCylinderVelocity*(fTime-parameters.pCraneParameters.fT2) + parameters.pCraneParameters.fMidPos;
+	ELSE
+		outputs.fCylinderVelocity := 0;
+	END_IF
+
+//	outputs.fCylinderVelocity := inputs.fCylinderVelocityReference;
+//	outputs.fCylinderPosition := 0.5*outputs.fCylinderVelocity*fTime*fTime + parameters.fInitialVelocity*fTime + parameters.fInitialPosition;
+END_IF
+
+
+IF inputs.bReset THEN
+	fTime := 0;
+	inputs.bStart := FALSE;
+	inputs.bEnable := FALSE;
+	inputs.bReset := FALSE;
+	outputs.fCylinderPosition := parameters.pCraneParameters.fInitialPosition;
+	outputs.fCylinderVelocity := parameters.pCraneParameters.fInitialVelocity;
+END_IF
+//oil level
+IF fOilLevelSensor < 20 THEN
+	eOilLevelAlarms := DUT_oil_level.VeryLow;
+	ELSIF fOilLevelSensor > 200 THEN
+		eOilLevelAlarms := DUT_oil_level.VeryHigh;
+	ELSE
+		eOilLevelAlarms := DUT_oil_level.OK;		
+END_IF
+fCraneAngle := F_degToRad(fDeg := fCraneAngleDeg);]]></ST>
+    </Implementation>
+    <LineIds Name="CraneSimulation">
+      <LineId Id="8" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="3" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="44" Count="2" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="32" Count="1" />
+      <LineId Id="35" Count="4" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="62" Count="4" />
+      <LineId Id="77" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
